@@ -18,7 +18,7 @@ export function Posts() {
   useEffect(() => {
     if (currentPage < maxPostPage) {
       const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(['posts', nextPage], () => fetchPosts(currentPage), { staleTime: 2000 });
+      queryClient.prefetchQuery(['posts', nextPage], () => fetchPosts(nextPage), { staleTime: 2000 });
     }
   }, [currentPage, queryClient]);
 
