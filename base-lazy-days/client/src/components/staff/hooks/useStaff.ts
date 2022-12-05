@@ -24,7 +24,15 @@ export function useStaff(): UseStaff {
 
   const fallback = [];
 
-  const { data: staff = fallback } = useQuery(queryKeys.staff, getStaff);
+  const selectFn = (staffs) => {
+    return staffs.filter((staff) => {
+      return staff.treatmentNames.includes(filter.toLowerCase());
+    });
+  };
+
+  const { data: staff = fallback } = useQuery(queryKeys.staff, getStaff, {
+    select: filter === 'all' ? undefined : selectFn,
+  });
 
   return { staff, filter, setFilter };
 }
